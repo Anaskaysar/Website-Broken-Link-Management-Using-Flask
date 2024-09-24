@@ -1,0 +1,29 @@
+<!-- app/templates/base.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Website Link Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}">D+ Management</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('view_broken_links') }}">Broken Links</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('view_spam_reports') }}">Spam Reports</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container mt-4">
+      {% block content %}{% endblock %}
+    </div>
+   
+    <!-- Local Bootstrap JS and dependencies -->
+   <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+
+  </body>
+</html>

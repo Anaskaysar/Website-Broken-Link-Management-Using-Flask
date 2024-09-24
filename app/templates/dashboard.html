@@ -1,0 +1,47 @@
+<!-- app/templates/dashboard.html -->
+{% extends "base.html" %}
+{% block content %}
+  <h1>Dashboard</h1>
+  
+  <h2>Recent Broken Links</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Page</th>
+        <th>URL</th>
+        <th>Status</th>
+        <th>Checked At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for link in broken_links %}
+      <tr>
+        <td>{{ link.page }}</td>
+        <td><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></td>
+        <td>{{ link.status_code }}</td>
+        <td>{{ link.checked_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <h2>Recent Spam Reports</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Content</th>
+        <th>Reason</th>
+        <th>Detected At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for spam in spam_reports %}
+      <tr>
+        <td>{{ spam.content }}</td>
+        <td>{{ spam.reason }}</td>
+        <td>{{ spam.detected_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

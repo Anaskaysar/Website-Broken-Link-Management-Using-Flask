@@ -1,0 +1,58 @@
+<!-- app/templates/broken_links.html -->
+{% extends "base.html" %}
+{% block content %}
+  <h1>Broken Links</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Page</th>
+        <th>URL</th>
+        <th>Status</th>
+        <th>Checked At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for link in broken_links.items %}
+      <tr>
+        <td>{{ link.page }}</td>
+        <td><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></td>
+        <td>{{ link.status_code }}</td>
+        <td>{{ link.checked_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      {% if broken_links.has_prev %}
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('view_broken_links', page=broken_links.prev_num) }}">Previous</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+      {% endif %}
+      
+      {% for page_num in broken_links.iter_pages() %}
+        {% if page_num %}
+          {% if page_num == broken_links.page %}
+            <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('view_broken_links', page=page_num) }}">{{ page_num }}</a></li>
+          {% endif %}
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">…</span></li>
+        {% endif %}
+      {% endfor %}
+      
+      {% if broken_links.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('view_broken_links', page=broken_links.next_num) }}">Next</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">Next</span></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endblock %}

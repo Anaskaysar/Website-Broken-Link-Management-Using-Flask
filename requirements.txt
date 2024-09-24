@@ -1,0 +1,9 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Bootstrap
+requests
+beautifulsoup4
+celery
+redis
+python-dotenv

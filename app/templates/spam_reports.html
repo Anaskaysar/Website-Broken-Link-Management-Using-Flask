@@ -1,0 +1,56 @@
+<!-- app/templates/spam_reports.html -->
+{% extends "base.html" %}
+{% block content %}
+  <h1>Spam Reports</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Content</th>
+        <th>Reason</th>
+        <th>Detected At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for spam in spam_reports.items %}
+      <tr>
+        <td>{{ spam.content }}</td>
+        <td>{{ spam.reason }}</td>
+        <td>{{ spam.detected_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <!-- Pagination -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      {% if spam_reports.has_prev %}
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('view_spam_reports', page=spam_reports.prev_num) }}">Previous</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+      {% endif %}
+      
+      {% for page_num in spam_reports.iter_pages() %}
+        {% if page_num %}
+          {% if page_num == spam_reports.page %}
+            <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('view_spam_reports', page=page_num) }}">{{ page_num }}</a></li>
+          {% endif %}
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">…</span></li>
+        {% endif %}
+      {% endfor %}
+      
+      {% if spam_reports.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="{{ url_for('view_spam_reports', page=spam_reports.next_num) }}">Next</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled"><span class="page-link">Next</span></li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endblock %}
